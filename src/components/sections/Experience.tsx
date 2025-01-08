@@ -4,7 +4,7 @@ interface Position {
   title: string;
   startDate: string;
   endDate: string;
-  responsibilities: string[];
+  responsibilities?: string[];
 }
 
 interface Company {
@@ -92,7 +92,7 @@ const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
       newResponsibilityMap[`${companyIndex}-${positionIndex}`];
     if (responsibility.trim()) {
       const newData = [...data];
-      newData[companyIndex].positions[positionIndex].responsibilities.push(
+      newData[companyIndex].positions[positionIndex].responsibilities?.push(
         responsibility
       );
       onChange(newData);
@@ -109,7 +109,7 @@ const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
     respIndex: number
   ) => {
     const newData = [...data];
-    newData[companyIndex].positions[positionIndex].responsibilities.splice(
+    newData[companyIndex].positions[positionIndex].responsibilities?.splice(
       respIndex,
       1
     );
@@ -255,7 +255,7 @@ const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
                   </button>
                 </div>
                 <ul className="list-disc ml-5 mt-2">
-                  {position.responsibilities.map((resp, respIndex) => (
+                  {position.responsibilities?.map((resp, respIndex) => (
                     <li
                       key={respIndex}
                       className="flex justify-between items-center"
