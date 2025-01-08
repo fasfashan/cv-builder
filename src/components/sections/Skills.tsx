@@ -1,21 +1,25 @@
-// src/components/Skills.tsx
 import { useState } from "react";
+
+// Definisikan tipe props yang diterima oleh komponen
 interface SkillsProps {
-  data: string[];
-  onChange: (skills: string[]) => void;
+  data: string[]; // Array of strings
+  onChange: (skills: string[]) => void; // Fungsi untuk mengubah array skills
 }
 
 const Skills = ({ data, onChange }: SkillsProps) => {
-  const [newSkill, setNewSkill] = useState("");
+  const [newSkill, setNewSkill] = useState<string>(""); // Tipe eksplisit untuk newSkill
 
   const addSkill = () => {
+    // Pastikan bahwa newSkill tidak kosong atau hanya spasi
     if (newSkill.trim()) {
+      // Menambahkan skill baru ke data dan memanggil onChange
       onChange([...data, newSkill.trim()]);
-      setNewSkill("");
+      setNewSkill(""); // Reset input setelah menambah skill
     }
   };
 
   const removeSkill = (index: number) => {
+    // Menghapus skill berdasarkan index yang diberikan
     onChange(data.filter((_, i) => i !== index));
   };
 
@@ -26,12 +30,12 @@ const Skills = ({ data, onChange }: SkillsProps) => {
         <input
           type="text"
           value={newSkill}
-          onChange={(e) => setNewSkill(e.target.value)}
+          onChange={(e) => setNewSkill(e.target.value)} // Memperbarui state newSkill
           className="shadow appearance-none border rounded flex-1 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           placeholder="Add a skill..."
         />
         <button
-          onClick={addSkill}
+          onClick={addSkill} // Memanggil fungsi untuk menambahkan skill
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Add
@@ -45,7 +49,7 @@ const Skills = ({ data, onChange }: SkillsProps) => {
           >
             {skill}
             <button
-              onClick={() => removeSkill(index)}
+              onClick={() => removeSkill(index)} // Memanggil removeSkill dengan index
               className="text-red-500 hover:text-red-700"
             >
               ×

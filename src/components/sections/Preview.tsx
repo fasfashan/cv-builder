@@ -1,32 +1,16 @@
 // src/components/Preview.tsx
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PDFDocument from "@/components/PDFDocument";
+import { PDFDocumentProps } from "@/types";
 
-interface PreviewProps {
-  data: {
-    personalInfo: {
-      photo: string | null;
-      name: string;
-      education: string;
-      title: string;
-      email: string;
-      dob: string;
-    };
-    aboutMe: string;
-    skills: string[];
-    experience: {
-      // Added experience interface
-      jobTitle: string;
-      company: string;
-      location: string;
-      startDate: string;
-      endDate: string;
-      responsibilities: string[];
-    }[];
-  };
+interface KeyProject {
+  title: string;
+  role: string;
+  objective: string;
+  outcome: string;
 }
 
-const Preview = ({ data }: PreviewProps) => {
+const Preview = ({ data }: PDFDocumentProps) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-10 border border-neutral-100 sticky top-6">
       {/* Personal Info Section */}
@@ -83,9 +67,8 @@ const Preview = ({ data }: PreviewProps) => {
                 {/* Company Header */}
                 <div className="mb-4">
                   <h3 className="text-xl font-bold text-gray-800">
-                    {company.company}
+                    {company.name}
                   </h3>
-                  <p className="text-gray-600">{company.location}</p>
                 </div>
 
                 {/* Positions */}
@@ -130,9 +113,8 @@ const Preview = ({ data }: PreviewProps) => {
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
             Key Projects
           </h2>
-
           <div className="space-y-6">
-            {data.keyProjects.map((project, index) => (
+            {data.keyProjects.map((project: KeyProject, index: number) => (
               <div
                 key={index}
                 className="border-b border-gray-200 space-y-4 last:border-b-0"
@@ -142,16 +124,16 @@ const Preview = ({ data }: PreviewProps) => {
                   {project.title}
                 </h3>
                 <div className="space-y-1">
-                  <p className="">
-                    Role: <span className="text-gray-600">{project.role}</span>{" "}
+                  <p>
+                    Role: <span className="text-gray-600">{project.role}</span>
                   </p>
-                  <p className="">
+                  <p>
                     Objective:{" "}
-                    <span className="text-gray-600">{project.objective}</span>{" "}
+                    <span className="text-gray-600">{project.objective}</span>
                   </p>
-                  <p className="">
+                  <p>
                     Outcome:{" "}
-                    <span className="text-gray-600">{project.outcome}</span>{" "}
+                    <span className="text-gray-600">{project.outcome}</span>
                   </p>
                 </div>
               </div>

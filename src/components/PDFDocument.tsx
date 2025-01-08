@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Font,
 } from "@react-pdf/renderer";
+import { PDFDocumentProps } from "@/types";
 // Register font Inter
 Font.register({
   family: "Inter",
@@ -117,22 +118,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface PDFDocumentProps {
-  data: {
-    personalInfo: {
-      name: string;
-      title: string;
-      email: string;
-      dob: string;
-    };
-    aboutMe: string;
-    skills: string[];
-    experience: string[];
-    keyProjects: string[];
-  };
-}
-
-const PDFDocument = ({ data }: PDFDocumentProps) => {
+const PDFDocument: React.FC<PDFDocumentProps> = ({ data }) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -173,16 +159,16 @@ const PDFDocument = ({ data }: PDFDocumentProps) => {
         </View>
         <View style={{ borderBottomWidth: 1, borderBottomColor: "#d3d3d3" }} />
         {/* About Me Section */}
-        <View style={styles.section}>
+        <View>
           <Text style={styles.textheader}>About Me</Text>
           <Text style={styles.textContent}>{data.aboutMe}</Text>
         </View>
         <View style={{ borderBottomWidth: 1, borderBottomColor: "#d3d3d3" }} />
         {/* Skills Section */}
-        <View style={styles.section}>
+        <View>
           <Text style={styles.textheader}>Key Skills & Expertise</Text>
           <View style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            {data.skills.map((skill, index) => (
+            {data.skills.map((skill: string, index: number) => (
               <View
                 key={index}
                 style={{
@@ -211,17 +197,14 @@ const PDFDocument = ({ data }: PDFDocumentProps) => {
 
         <View style={{ borderBottomWidth: 1, borderBottomColor: "#d3d3d3" }} />
         {/* Exp Section */}
-        <View style={styles.section}>
+        <View>
           <Text style={styles.textheader}>Experience</Text>
           {data.experience?.map((company, index) => (
             <View key={index} style={{ marginBottom: 15 }}>
               <View
                 style={{ flexDirection: "row", gap: 4, alignItems: "center" }}
               >
-                <Text style={styles.textSubHeader}>{company.company}</Text>
-                <Text style={{ fontSize: 11, color: "#575757" }}>
-                  ({company.location})
-                </Text>
+                <Text style={styles.textSubHeader}>{company.name}</Text>
               </View>
 
               {company.positions?.map((position, posIndex) => (
@@ -276,26 +259,45 @@ const PDFDocument = ({ data }: PDFDocumentProps) => {
         </View>
         <View style={{ borderBottomWidth: 1, borderBottomColor: "#d3d3d3" }} />
         {/* Key Projects Section */}
-        {data.keyProjects && data.keyProjects.length > 0 && (
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Key Projects</Text>
 
-            {data.keyProjects.map((project, index) => (
-              <View key={index} style={styles.projectItem}>
-                <Text style={styles.projectTitle}>{project.title}</Text>
-                <Text style={styles.projectRole}>{project.role}</Text>
+        <View>
+          <Text style={styles.sectionTitle}>Key Projects</Text>
 
-                <View style={styles.projectContent}>
-                  <Text style={styles.contentLabel}>Objective</Text>
-                  <Text style={styles.contentText}>{project.objective}</Text>
-
-                  <Text style={styles.contentLabel}>Outcome</Text>
-                  <Text style={styles.contentText}>{project.outcome}</Text>
-                </View>
-              </View>
-            ))}
-          </View>
-        )}
+          {data.keyProjects.map(
+            (
+              project: {
+                title: string;
+                role: string;
+                objective: string;
+                outcome: string;
+              },
+              index: number
+            ) => (
+              <div
+                key={index}
+                className="border-b border-gray-200 space-y-4 last:border-b-0"
+              >
+                {/* Project Title */}
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  {project.title}
+                </h3>
+                <div className="space-y-1">
+                  <p>
+                    Role: <span className="text-gray-600">{project.role}</span>
+                  </p>
+                  <p>
+                    Objective:{" "}
+                    <span className="text-gray-600">{project.objective}</span>
+                  </p>
+                  <p>
+                    Outcome:{" "}
+                    <span className="text-gray-600">{project.outcome}</span>
+                  </p>
+                </div>
+              </div>
+            )
+          )}
+        </View>
       </Page>
     </Document>
   );

@@ -9,7 +9,6 @@ interface PersonalInfoProps {
     dob: string;
   };
   onChange: (data: {
-    photo: string | null;
     education: string;
     name: string;
     title: string;

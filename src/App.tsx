@@ -1,44 +1,26 @@
-// src/App.tsx
 import { useState } from "react";
+import { PDFDocumentProps } from "@/types"; // Make sure the import is correct
 import PersonalInfo from "@/components/sections/PersonalInfo";
 import AboutMe from "@/components/sections/AboutMe";
 import Skills from "@/components/sections/Skills";
 import Preview from "@/components/sections/Preview";
 import Experience from "@/components/sections/Experience";
-import KeyProjects from "@/components/sections/KeyProjects"; // Updated import path
-
-// interface Project {
-//   title: string;
-//   description: string;
-//   technologies: string[];
-//   startDate: string;
-//   endDate: string;
-//   link?: string;
-// }
-
-// interface ExperienceItem {
-//   jobTitle: string;
-//   company: string;
-//   location: string;
-//   startDate: string;
-//   endDate: string;
-//   responsibilities: string[];
-//   keyProjects: Project[];
-// }
+import KeyProjects from "@/components/sections/KeyProjects";
 
 function App() {
-  const [cvData, setCvData] = useState({
+  // Initialize state with the correct structure based on PDFDocumentProps
+  const [cvData, setCvData] = useState<PDFDocumentProps["data"]>({
     personalInfo: {
       name: "",
       title: "",
       email: "",
       dob: "",
-      education: "", // Tambahkan education field
+      education: "",
     },
     aboutMe: "",
     skills: [],
-    keyProjects: [],
     experience: [],
+    keyProjects: [],
   });
 
   return (

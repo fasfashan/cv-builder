@@ -19,14 +19,16 @@ interface ExperienceProps {
 
 const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
   const [newCompany, setNewCompany] = useState("");
-  const [newResponsibility, setNewResponsibility] = useState("");
+  const [newResponsibilityMap, setNewResponsibilityMap] = useState<{
+    [key: string]: string;
+  }>({});
 
   const addCompany = () => {
     if (newCompany.trim()) {
       onChange([
         ...data,
         {
-          company: newCompany,
+          name: newCompany,
           positions: [],
         },
       ]);
@@ -51,7 +53,6 @@ const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
     onChange(newData);
   };
 
-  // Tambahkan fungsi removePosition
   const removePosition = (companyIndex: number, positionIndex: number) => {
     const newData = [...data];
     newData[companyIndex].positions.splice(positionIndex, 1);
@@ -65,18 +66,40 @@ const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
     value: string
   ) => {
     const newData = [...data];
-    newData[companyIndex].positions[positionIndex][field] = value;
+
+    if (field === "responsibilities") {
+      newData[companyIndex].positions[positionIndex][field] = [value];
+    } else {
+      newData[companyIndex].positions[positionIndex][field] = value;
+    }
+
     onChange(newData);
   };
 
+  const handleResponsibilityChange = (
+    companyIndex: number,
+    positionIndex: number,
+    value: string
+  ) => {
+    setNewResponsibilityMap((prevState) => ({
+      ...prevState,
+      [`${companyIndex}-${positionIndex}`]: value,
+    }));
+  };
+
   const addResponsibility = (companyIndex: number, positionIndex: number) => {
-    if (newResponsibility.trim()) {
+    const responsibility =
+      newResponsibilityMap[`${companyIndex}-${positionIndex}`];
+    if (responsibility.trim()) {
       const newData = [...data];
       newData[companyIndex].positions[positionIndex].responsibilities.push(
-        newResponsibility
+        responsibility
       );
       onChange(newData);
-      setNewResponsibility("");
+      setNewResponsibilityMap((prevState) => ({
+        ...prevState,
+        [`${companyIndex}-${positionIndex}`]: "", // reset input after adding
+      }));
     }
   };
 
@@ -120,7 +143,7 @@ const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
       {data.map((company, companyIndex) => (
         <div key={companyIndex} className="border p-4 rounded">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold">{company.company}</h3>
+            <h3 className="text-lg font-semibold">{company.name}</h3>
             <div className="space-x-2">
               <button
                 onClick={() => addPosition(companyIndex)}
@@ -207,8 +230,16 @@ const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
                   <input
                     type="text"
                     placeholder="Add responsibility"
-                    value={newResponsibility}
-                    onChange={(e) => setNewResponsibility(e.target.value)}
+                    value={
+                      newResponsibilityMap[`${companyIndex}-${posIndex}`] || ""
+                    }
+                    onChange={(e) =>
+                      handleResponsibilityChange(
+                        companyIndex,
+                        posIndex,
+                        e.target.value
+                      )
+                    }
                     className="flex-1 p-2 border rounded"
                     onKeyPress={(e) => {
                       if (e.key === "Enter") {
