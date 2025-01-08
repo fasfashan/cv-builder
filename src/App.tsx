@@ -7,29 +7,28 @@ import Preview from "@/components/sections/Preview";
 import Experience from "@/components/sections/Experience";
 import KeyProjects from "@/components/sections/KeyProjects"; // Updated import path
 
-interface Project {
-  title: string;
-  description: string;
-  technologies: string[];
-  startDate: string;
-  endDate: string;
-  link?: string;
-}
+// interface Project {
+//   title: string;
+//   description: string;
+//   technologies: string[];
+//   startDate: string;
+//   endDate: string;
+//   link?: string;
+// }
 
-interface ExperienceItem {
-  jobTitle: string;
-  company: string;
-  location: string;
-  startDate: string;
-  endDate: string;
-  responsibilities: string[];
-  keyProjects: Project[];
-}
+// interface ExperienceItem {
+//   jobTitle: string;
+//   company: string;
+//   location: string;
+//   startDate: string;
+//   endDate: string;
+//   responsibilities: string[];
+//   keyProjects: Project[];
+// }
 
 function App() {
   const [cvData, setCvData] = useState({
     personalInfo: {
-      photo: null,
       name: "",
       title: "",
       email: "",
