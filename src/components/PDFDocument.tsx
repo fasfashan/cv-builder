@@ -318,6 +318,34 @@ const PDFDocument: React.FC<PDFDocumentProps> = ({ data }) => {
           ))}
         </View>
         <View style={{ borderBottomWidth: 1, borderBottomColor: "#d3d3d3" }} />
+
+        {/* Certificates Section */}
+        <View>
+          <Text style={styles.textheader}>Certificates</Text>
+          {data.certificates?.map((certificate, index) => (
+            <View key={index} style={{ marginBottom: 15 }}>
+              <Text style={styles.textSubHeader}>{certificate.title}</Text>
+              <Text style={styles.textContent}>{certificate.credential}</Text>
+            </View>
+          ))}
+        </View>
+        <View style={{ borderBottomWidth: 1, borderBottomColor: "#d3d3d3" }} />
+
+        {/* Education Section */}
+        <View>
+          <Text style={styles.textheader}>Education Background</Text>
+          {data.education?.map((education, index) => (
+            <View key={index} style={{ marginBottom: 15 }}>
+              <Text style={styles.textSubHeader}>
+                {education.universityName}
+              </Text>
+              <Text style={styles.textContent}>
+                {education.major} - {education.gpa}
+              </Text>
+              <Text style={styles.textContent}>{education.graduationYear}</Text>
+            </View>
+          ))}
+        </View>
       </Page>
     </Document>
   );

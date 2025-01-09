@@ -40,6 +40,12 @@ export interface PDFDocumentProps {
       outcome: string;
     }[];
     certificates: Certificate[];
+    education: {
+      universityName: string;
+      gpa: string;
+      major: string;
+      graduationYear: string;
+    }[];
   };
 }
 export interface Certificate {
