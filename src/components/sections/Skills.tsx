@@ -24,14 +24,17 @@ const Skills = ({ data, onChange }: SkillsProps) => {
   };
 
   return (
-    <div className="mb-6">
-      <h2 className="text-xl font-bold mb-4">Skills</h2>
+    <div className="mb-6 p-8 border border-neutral-200 rounded-lg">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">
+        Key Skills & Expertise
+      </h2>
+      <h2 className="text-sm font-bold mb-4">Skills</h2>
       <div className="flex gap-2 mb-4">
         <input
           type="text"
           value={newSkill}
           onChange={(e) => setNewSkill(e.target.value)} // Memperbarui state newSkill
-          className="shadow appearance-none border rounded flex-1 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded flex-1 py-2 px-3  text-gray-700 leading-tight focus:outline-blue-200 focus:shadow-outline"
           placeholder="Add a skill..."
         />
         <button

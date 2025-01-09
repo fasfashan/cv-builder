@@ -1,4 +1,4 @@
-// components/sections/KeyProjects.tsx
+import React, { useEffect } from "react";
 
 interface Project {
   title: string;
@@ -13,6 +13,20 @@ interface KeyProjectsProps {
 }
 
 const KeyProjects: React.FC<KeyProjectsProps> = ({ data = [], onChange }) => {
+  useEffect(() => {
+    // Pastikan ada minimal satu proyek kosong saat pertama kali dirender
+    if (data.length === 0) {
+      onChange([
+        {
+          title: "",
+          role: "",
+          objective: "",
+          outcome: "",
+        },
+      ]);
+    }
+  }, [data, onChange]);
+
   const addProject = () => {
     onChange([
       ...data,
@@ -24,6 +38,7 @@ const KeyProjects: React.FC<KeyProjectsProps> = ({ data = [], onChange }) => {
       },
     ]);
   };
+
   const deleteProject = (index: number) => {
     const newData = data.filter((_, i) => i !== index);
     onChange(newData);
@@ -43,41 +58,65 @@ const KeyProjects: React.FC<KeyProjectsProps> = ({ data = [], onChange }) => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-8 border border-neutral-200 rounded-lg">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">Key Projects</h2>
       {data.map((project, index) => (
-        <div key={index} className="border rounded-lg p-4">
-          <div className="space-y-4">
-            <input
-              type="text"
-              placeholder="Project Title"
-              value={project.title}
-              onChange={(e) => updateProject(index, "title", e.target.value)}
-              className="w-full p-2 border rounded"
-            />
+        <div key={index} className=" ">
+          <div className="space-y-6">
+            <div>
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Keyproject Title
+              </label>
+              <input
+                type="text"
+                placeholder="SmartGateway Application (Bank Panin & Mizuho)
+"
+                value={project.title}
+                onChange={(e) => updateProject(index, "title", e.target.value)}
+                className="shadow appearance-none border rounded flex-1 py-2 px-3  text-gray-700 leading-tight focus:outline-blue-200 focus:shadow-outline w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Role
+              </label>
+              <input
+                type="text"
+                placeholder="Project Manager"
+                value={project.role}
+                onChange={(e) => updateProject(index, "role", e.target.value)}
+                className="shadow appearance-none border rounded flex-1 py-2 px-3  text-gray-700 leading-tight focus:outline-blue-200 focus:shadow-outline w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Objective
+              </label>
+              <input
+                type="text"
+                placeholder="Objective"
+                value={project.objective}
+                onChange={(e) =>
+                  updateProject(index, "objective", e.target.value)
+                }
+                className="shadow appearance-none border rounded flex-1 py-2 px-3  text-gray-700 leading-tight focus:outline-blue-200 focus:shadow-outline w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Outcome
+              </label>
+              <input
+                type="text"
+                placeholder="Outcome"
+                value={project.outcome}
+                onChange={(e) =>
+                  updateProject(index, "outcome", e.target.value)
+                }
+                className="shadow appearance-none border rounded flex-1 py-2 px-3  text-gray-700 leading-tight focus:outline-blue-200 focus:shadow-outline w-full"
+              />
+            </div>
 
-            <input
-              type="text"
-              placeholder="Role"
-              value={project.role}
-              onChange={(e) => updateProject(index, "role", e.target.value)}
-              className="w-full p-2 border rounded"
-            />
-
-            <textarea
-              placeholder="Objective"
-              value={project.objective}
-              onChange={(e) =>
-                updateProject(index, "objective", e.target.value)
-              }
-              className="w-full p-2 border rounded h-24"
-            />
-
-            <textarea
-              placeholder="Outcome"
-              value={project.outcome}
-              onChange={(e) => updateProject(index, "outcome", e.target.value)}
-              className="w-full p-2 border rounded h-24"
-            />
             <div className="flex justify-between items-center">
               <button
                 onClick={() => deleteProject(index)}
@@ -86,6 +125,7 @@ const KeyProjects: React.FC<KeyProjectsProps> = ({ data = [], onChange }) => {
                 Delete
               </button>
             </div>
+            <hr />
           </div>
         </div>
       ))}
@@ -94,7 +134,7 @@ const KeyProjects: React.FC<KeyProjectsProps> = ({ data = [], onChange }) => {
         onClick={addProject}
         className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
-        Add Project
+        Add another key project
       </button>
     </div>
   );

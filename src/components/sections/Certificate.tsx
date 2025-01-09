@@ -31,11 +31,11 @@ const Certificates: React.FC<CertificateProps> = ({ data, onChange }) => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6 p-8 border border-neutral-200 rounded-lg">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Certificates</h2>
 
       {/* Form untuk menambah sertifikat baru */}
-      <div className="p-4 bg-white rounded-lg shadow">
+      <div className="">
         <div className="grid grid-cols-2 gap-4">
           <input
             type="text"
@@ -44,7 +44,7 @@ const Certificates: React.FC<CertificateProps> = ({ data, onChange }) => {
             onChange={(e) =>
               setNewCertificate({ ...newCertificate, title: e.target.value })
             }
-            className="p-2 border rounded"
+            className="shadow appearance-none border rounded flex-1 py-2 px-3  text-gray-700 leading-tight focus:outline-blue-200 focus:shadow-outline"
           />
           <input
             type="text"
@@ -56,7 +56,7 @@ const Certificates: React.FC<CertificateProps> = ({ data, onChange }) => {
                 credential: e.target.value,
               })
             }
-            className="p-2 border rounded"
+            className="shadow appearance-none border rounded flex-1 py-2 px-3  text-gray-700 leading-tight focus:outline-blue-200 focus:shadow-outline"
           />
         </div>
         <button

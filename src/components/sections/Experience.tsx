@@ -117,43 +117,49 @@ const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex gap-2">
-        <input
-          required
-          type="text"
-          placeholder="Add company"
-          value={newCompany}
-          onChange={(e) => setNewCompany(e.target.value)}
-          className="flex-1 p-2 border rounded"
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              addCompany();
-            }
-          }}
-        />
+    <div className="space-y-6 p-8 border border-neutral-200 rounded-lg">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">Work Experience</h2>
+      <div className="flex items-end   gap-2">
+        <div className="flex flex-col w-full">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Company Name
+          </label>
+          <input
+            required
+            type="text"
+            placeholder="Murni Solusindo Nusantara"
+            value={newCompany}
+            onChange={(e) => setNewCompany(e.target.value)}
+            className="shadow appearance-none border rounded flex-1 py-2 px-3  text-gray-700 leading-tight focus:outline-blue-200 focus:shadow-outline"
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                addCompany();
+              }
+            }}
+          />
+        </div>
         <button
           onClick={addCompany}
-          className="px-4 py-2 bg-blue-500 text-white rounded"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
-          Add Company
+          Add
         </button>
       </div>
 
       {data.map((company, companyIndex) => (
-        <div key={companyIndex} className="border p-4 rounded">
-          <div className="flex justify-between items-center mb-4">
+        <div key={companyIndex}>
+          <div className="flex justify-between items-center mb-4 mt-8">
             <h3 className="text-lg font-semibold">{company.name}</h3>
-            <div className="space-x-2">
+            <div className="flex gap-2 items-center">
               <button
                 onClick={() => addPosition(companyIndex)}
-                className="px-4 py-2 bg-green-500 text-white rounded"
+                className="px-4 py-2 border border-neutral-200 shadow-sm  text-black hover:bg-neutral-100 rounded"
               >
                 Add Position
               </button>
               <button
                 onClick={() => removeCompany(companyIndex)}
-                className="px-4 py-2 bg-red-500 text-white rounded"
+                className="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded"
               >
                 Remove Company
               </button>
@@ -161,8 +167,11 @@ const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
           </div>
 
           {company.positions.map((position, posIndex) => (
-            <div key={posIndex} className="ml-4 p-4 border-l-2">
-              <div className="grid grid-cols-3 gap-4">
+            <div
+              key={posIndex}
+              className="ml-4 gap-4 flex flex-col p-4 border-l-2"
+            >
+              <div className="flex flex-col gap-4">
                 <input
                   type="text"
                   placeholder="Position Title"
@@ -175,11 +184,12 @@ const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
                       e.target.value
                     )
                   }
-                  className="p-2 border rounded"
+                  className="shadow appearance-none border rounded flex-1 py-2 px-3  text-gray-700 leading-tight focus:outline-blue-200 focus:shadow-outline"
                 />
                 <input
                   type="text"
                   value={position.startDate}
+                  placeholder="Start Date"
                   onChange={(e) =>
                     updatePosition(
                       companyIndex,
@@ -188,12 +198,13 @@ const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
                       e.target.value
                     )
                   }
-                  className="p-2 border rounded"
+                  className="shadow appearance-none border rounded flex-1 py-2 px-3  text-gray-700 leading-tight focus:outline-blue-200 focus:shadow-outline"
                 />
                 <div className="flex items-center gap-2">
                   <input
                     type="text"
                     value={position.endDate}
+                    placeholder="End Date"
                     onChange={(e) =>
                       updatePosition(
                         companyIndex,
@@ -202,25 +213,8 @@ const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
                         e.target.value
                       )
                     }
-                    className="p-2 border rounded flex-1"
+                    className="shadow appearance-none border rounded flex-1 py-2 px-3  text-gray-700 leading-tight focus:outline-blue-200 focus:shadow-outline"
                   />
-                  <button
-                    onClick={() => removePosition(companyIndex, posIndex)}
-                    className="p-2 text-red-500 hover:text-red-700"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </button>
                 </div>
               </div>
 
@@ -240,7 +234,7 @@ const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
                         e.target.value
                       )
                     }
-                    className="flex-1 p-2 border rounded"
+                    className="shadow appearance-none border rounded flex-1 py-2 px-3  text-gray-700 leading-tight focus:outline-blue-200 focus:shadow-outline"
                     onKeyPress={(e) => {
                       if (e.key === "Enter") {
                         addResponsibility(companyIndex, posIndex);
@@ -271,12 +265,29 @@ const Experience: React.FC<ExperienceProps> = ({ data, onChange }) => {
                         }
                         className="text-red-500"
                       >
-                        Remove
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
                       </button>
                     </li>
                   ))}
                 </ul>
               </div>
+              <button
+                onClick={() => removePosition(companyIndex, posIndex)}
+                className="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded"
+              >
+                Remove Position
+              </button>
             </div>
           ))}
         </div>
