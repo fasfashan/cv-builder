@@ -6,7 +6,7 @@ import Skills from "@/components/sections/Skills";
 import Preview from "@/components/sections/Preview";
 import Experience from "@/components/sections/Experience";
 import KeyProjects from "@/components/sections/KeyProjects";
-
+import Certificates from "./components/sections/Certificate";
 function App() {
   // Initialize state with the correct structure based on PDFDocumentProps
   const [cvData, setCvData] = useState<PDFDocumentProps["data"]>({
@@ -21,6 +21,7 @@ function App() {
     skills: [],
     experience: [],
     keyProjects: [],
+    certificates: [],
   });
 
   return (
@@ -46,6 +47,10 @@ function App() {
           <KeyProjects
             data={cvData.keyProjects}
             onChange={(keyProjects) => setCvData({ ...cvData, keyProjects })}
+          />
+          <Certificates
+            data={cvData.certificates}
+            onChange={(certificates) => setCvData({ ...cvData, certificates })}
           />
         </div>
         <Preview data={cvData} />

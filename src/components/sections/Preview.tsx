@@ -1,7 +1,7 @@
 // src/components/Preview.tsx
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PDFDocument from "@/components/PDFDocument";
-import { PDFDocumentProps } from "@/types";
+import { Certificate, PDFDocumentProps } from "@/types";
 
 interface KeyProject {
   title: string;
@@ -141,7 +141,27 @@ const Preview = ({ data }: PDFDocumentProps) => {
           </div>
         </div>
       )}
-
+      {data.certificates && data.certificates.length > 0 && (
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            Certifications
+          </h2>
+          <div className="space-y-6">
+            {data.certificates.map((project: Certificate, index: number) => (
+              <div
+                key={index}
+                className="border-b border-gray-200 space-y-4 last:border-b-0"
+              >
+                {/* Project Title */}
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  {project.title}
+                </h3>
+                <p>Credentials: {project.credential}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       {/* PDF Download Button */}
       <PDFDownloadLink
         document={<PDFDocument data={data} />}

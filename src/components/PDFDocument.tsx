@@ -33,7 +33,7 @@ Font.register({
 // Define styles using StyleSheet.create
 const styles = StyleSheet.create({
   textheader: {
-    fontSize: 13,
+    fontSize: 15,
     fontWeight: 700,
     marginBottom: 16,
   },
@@ -258,46 +258,66 @@ const PDFDocument: React.FC<PDFDocumentProps> = ({ data }) => {
           ))}
         </View>
         <View style={{ borderBottomWidth: 1, borderBottomColor: "#d3d3d3" }} />
+
         {/* Key Projects Section */}
-
         <View>
-          <Text style={styles.sectionTitle}>Key Projects</Text>
+          <Text style={styles.textheader}>Key Projects</Text>
 
-          {data.keyProjects.map(
-            (
-              project: {
-                title: string;
-                role: string;
-                objective: string;
-                outcome: string;
-              },
-              index: number
-            ) => (
-              <div
-                key={index}
-                className="border-b border-gray-200 space-y-4 last:border-b-0"
+          {data.keyProjects.map((project, index) => (
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 12,
+                marginBottom: 16,
+              }}
+              key={index}
+            >
+              <Text style={styles.textSubHeader}>{project.title}</Text>
+
+              <View
+                style={{ display: "flex", flexDirection: "column", gap: 8 }}
               >
-                {/* Project Title */}
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                  {project.title}
-                </h3>
-                <div className="space-y-1">
-                  <p>
-                    Role: <span className="text-gray-600">{project.role}</span>
-                  </p>
-                  <p>
-                    Objective:{" "}
-                    <span className="text-gray-600">{project.objective}</span>
-                  </p>
-                  <p>
+                <Text>
+                  <Text
+                    style={[
+                      styles.textContent,
+                      { fontWeight: "medium", color: "black" },
+                    ]}
+                  >
+                    Role:{" "}
+                  </Text>
+                  <Text style={styles.textContent}> {project.role}</Text>
+                </Text>
+
+                <Text>
+                  <Text
+                    style={[
+                      styles.textContent,
+                      { fontWeight: "medium", color: "black" },
+                    ]}
+                  >
+                    Objective:
+                  </Text>
+                  <Text style={styles.textContent}> {project.objective}</Text>
+                </Text>
+
+                <Text>
+                  <Text
+                    style={[
+                      styles.textContent,
+                      { fontWeight: "medium", color: "black" },
+                    ]}
+                  >
                     Outcome:{" "}
-                    <span className="text-gray-600">{project.outcome}</span>
-                  </p>
-                </div>
-              </div>
-            )
-          )}
+                  </Text>
+                  <Text style={styles.textContent}> {project.outcome}</Text>
+                </Text>
+              </View>
+            </View>
+          ))}
         </View>
+        <View style={{ borderBottomWidth: 1, borderBottomColor: "#d3d3d3" }} />
       </Page>
     </Document>
   );

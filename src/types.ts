@@ -39,5 +39,10 @@ export interface PDFDocumentProps {
       objective: string;
       outcome: string;
     }[];
+    certificates: Certificate[];
   };
+}
+export interface Certificate {
+  title: string;
+  credential: string;
 }

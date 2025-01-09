@@ -24,6 +24,10 @@ const KeyProjects: React.FC<KeyProjectsProps> = ({ data = [], onChange }) => {
       },
     ]);
   };
+  const deleteProject = (index: number) => {
+    const newData = data.filter((_, i) => i !== index);
+    onChange(newData);
+  };
 
   const updateProject = (
     index: number,
@@ -74,6 +78,14 @@ const KeyProjects: React.FC<KeyProjectsProps> = ({ data = [], onChange }) => {
               onChange={(e) => updateProject(index, "outcome", e.target.value)}
               className="w-full p-2 border rounded h-24"
             />
+            <div className="flex justify-between items-center">
+              <button
+                onClick={() => deleteProject(index)}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       ))}
