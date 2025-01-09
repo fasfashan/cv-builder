@@ -163,9 +163,10 @@ const Preview = ({ data }: PDFDocumentProps) => {
         </div>
       )}
       {/* PDF Download Button */}
+
       <PDFDownloadLink
         document={<PDFDocument data={data} />}
-        fileName="my-cv.pdf"
+        fileName={data.personalInfo.name.replace(/\s+/g, " ").toUpperCase()}
         className="mt-6 w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors text-center block"
       >
         Download PDF
